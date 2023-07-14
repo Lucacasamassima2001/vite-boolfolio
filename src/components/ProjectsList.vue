@@ -1,11 +1,13 @@
 <script>
 import axios from 'axios';
+
+import ProjectCardVue from './ProjectCard.vue';
 export default {
     data(){
         return {
             arrProjects: [],
-            curentPage: 1,
-            nPage: 0,
+            currentPage: 1,
+            nPages: 0,
         };
     },
     methods: {
@@ -35,6 +37,9 @@ export default {
 				this.arrProjects = response.data.data;
 				this.nPages = response.data.last_page;
 			});
+    },
+    components:{
+        ProjectCardVue,
     }
 };
 </script>
@@ -42,9 +47,10 @@ export default {
 
 
 <template>
-    <h2>Questi sono i nostri post:</h2>
+    <div class="container py-5">
+        <h2 class="text-light fs-1">Questi sono i nostri post:</h2>
     <ul>
-        <li v-for="project in arrProjects" :key="project.id">{{ project.title }}</li>
+        <li class="text-light" v-for="project in arrProjects" :key="project.id">{{ project.title }}</li>
     </ul>
     <nav>
 		<ul class="pagination">
@@ -68,6 +74,11 @@ export default {
 			</li>
 		</ul>
 	</nav>
+    </div>
+    
+    <div class="container-big py-3 d-flex gap-5 flex-wrap justify-content-center">
+        <ProjectCardVue v-for="project in arrProjects" :title="project.title" :key="project.title" :url_image="project.url_image" :description="project.description" :repo="project.repo"/>
+    </div>
 </template>
 
 

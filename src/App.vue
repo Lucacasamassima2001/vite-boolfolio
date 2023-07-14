@@ -15,5 +15,9 @@ export default {
 
 <style lang="scss">
 @import "../node_modules/bootstrap/scss/bootstrap";
+body{
+  background-color: rgb(77, 77, 189);
+
+}
 
 </style>
