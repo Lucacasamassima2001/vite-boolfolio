@@ -1,13 +1,16 @@
 <script>
 import axios from 'axios';
-
 import ProjectCardVue from './ProjectCard.vue';
+import {store} from '../store';
+
+
 export default {
     data(){
         return {
             arrProjects: [],
             currentPage: 1,
             nPages: 0,
+			store,
         };
     },
     methods: {
@@ -16,7 +19,7 @@ export default {
             this.getProjects();
         },
         getProjects(){
-            axios.get('http://localhost:8000/api/projects', {
+            axios.get(this.store.baseUrl + 'api/projects', {
 				params: {
 					page: this.currentPage,
 				},
@@ -25,19 +28,16 @@ export default {
 				this.arrProjects = response.data.data;
 				this.nPages = response.data.last_page;
 			});
-        }
+        },
     },
     created(){
-        axios.get('http://localhost:8000/api/projects', {
-				params: {
-					page: this.currentPage,
-				},
-			})
-			.then(response => {
-				this.arrProjects = response.data.data;
-				this.nPages = response.data.last_page;
-			});
+        this.getProjects()
     },
+	watch: {
+		currentPage(){
+			this.getProjects();
+		}
+	},
     components:{
         ProjectCardVue,
     }
@@ -52,10 +52,19 @@ export default {
     <ul>
         <li class="text-light" v-for="project in arrProjects" :key="project.id">{{ project.title }}</li>
     </ul>
-    <nav>
+    
+    </div>
+    
+    <div class="container-big py-3 d-flex gap-3 flex-wrap justify-content-center">
+		<div class="col-3" v-for="project in arrProjects" :key="project.title">
+			<ProjectCardVue :objProject="project"/>
+		</div>
+    </div>
+
+	<nav class="mx-3">
 		<ul class="pagination">
-			<li class="page-item disabled">
-				<a class="page-link">Previous</a>
+			<li class="page-item" :class="{disabled: currentPage == 1}">
+				<a class="page-link" @click="currentPage--">Previous</a>
 			</li>
 
 			<li
@@ -64,21 +73,16 @@ export default {
 				class="page-item"
 				:class="{ active: page == currentPage }"
 			>
-				<span class="page-link" @click="changePage(page)">
+				<span class="page-link" @click="currentPage = page">
 					{{ page }}
 				</span>
 			</li>
 
 			<li class="page-item">
-				<a class="page-link" href="#">Next</a>
+				<a class="page-link" :class="{disabled: currentPage == nPages}" href="#" @click="currentPage++">Next</a>
 			</li>
 		</ul>
 	</nav>
-    </div>
-    
-    <div class="container-big py-3 d-flex gap-5 flex-wrap justify-content-center">
-        <ProjectCardVue v-for="project in arrProjects" :title="project.title" :key="project.title" :url_image="project.url_image" :description="project.description" :repo="project.repo"/>
-    </div>
 </template>
 
 
