@@ -20,7 +20,7 @@ const router = createRouter({
             component: AppProjects, 
         },
         {
-            path: '/projects/:id',
+            path: '/projects/:slug',
             name: 'projects.show',
             component: ProjectShow,
         }

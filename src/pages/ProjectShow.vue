@@ -8,10 +8,15 @@ export default {
             store,
         };
     },
+
+    props: {
+      objProject: Object,
+      required: true,
+    },
     
     created() {
         // richiesta axios per i dati del project singolo
-        axios.get(this.store.baseUrl + 'api/projects/' + this.$route.params.id)
+        axios.get(this.store.baseUrl + 'api/projects/' + this.$route.params.slug)
         .then(response=>console.log(response));
     },
 }
@@ -19,7 +24,8 @@ export default {
 
 
 <template>
-    <h2>sono la show</h2>
+    <h2 class="text-light text-center py-3">Selected Project</h2>
+    
 </template>
 
 

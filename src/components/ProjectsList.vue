@@ -49,9 +49,11 @@ export default {
 <template>
     <div class="container py-5">
         <h2 class="text-light fs-1">Questi sono i nostri post:</h2>
-    <ul>
-        <li class="text-light" v-for="project in arrProjects" :key="project.id">{{ project.title }}</li>
-    </ul>
+		<!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-5">
+			<div class="col" v-for="project in arrProjects" :key="project.id">
+				<ProjectCardVue :objProject="project" />
+			</div>
+		</div> -->
     
     </div>
     
