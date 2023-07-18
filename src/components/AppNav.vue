@@ -1,7 +1,11 @@
 <script>
 export default {
-
-}
+  data(){
+    return {
+      searchString: '',
+    };
+  }
+};
 </script>
 
 
@@ -23,6 +27,11 @@ export default {
                 <a class="nav-link active" aria-current="page" href="#">Projects</a>
             </router-link>
         </li>
+        <li class="nav-item">
+            <router-link :to="{name: 'about'}">
+                <a class="nav-link active" aria-current="page" href="#">About</a>
+            </router-link>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
@@ -38,10 +47,19 @@ export default {
           <a class="nav-link disabled">Disabled</a>
         </li> -->
       </ul>
-      <!-- <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" 
+            role="search" 
+            @submit.prevent="$router.push({name: 'projects', query: {q: searchString },})"
+            >
+        <input class="form-control me-2"
+         type="search"
+         placeholder="Search" 
+         aria-label="Search"
+         name="q"
+         v-model="searchString"
+         >
         <button class="btn btn-outline-success" type="submit">Search</button>
-      </form> -->
+      </form>
     </div>
   </div>
 </nav>

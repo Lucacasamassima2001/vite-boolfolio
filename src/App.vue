@@ -1,5 +1,4 @@
 <script>
-import AppNavVue from './components/AppNav.vue';
 import ProjectsList from './components/ProjectsList.vue';
 import AppNav from './components/AppNav.vue';
 import AppFooter from './components/AppFooter.vue';

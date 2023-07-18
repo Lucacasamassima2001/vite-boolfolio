@@ -8,6 +8,7 @@ export default {
     data(){
         return {
             arrProjects: [],
+			arrTypes: [],
             currentPage: 1,
             nPages: 0,
 			store,
@@ -22,16 +23,25 @@ export default {
             axios.get(this.store.baseUrl + 'api/projects', {
 				params: {
 					page: this.currentPage,
+					// to do/fix me
+					// q: new URLSearchParams(window.location.search).get('q'),
 				},
 			})
 			.then(response => {
-				this.arrProjects = response.data.data;
-				this.nPages = response.data.last_page;
+				this.arrProjects = response.data.results.data;
+				this.nPages = response.data.results.last_page;
 			});
         },
+
+		getTypes() {
+			axios.get(this.store.baseUrl + 'api/types').then(response => {
+				this.arrTypes = response.data.results;
+			});
+		},
     },
     created(){
-        this.getProjects()
+        this.getProjects();
+        this.getTypes();
     },
 	watch: {
 		currentPage(){
@@ -40,7 +50,7 @@ export default {
 	},
     components:{
         ProjectCardVue,
-    }
+    },
 };
 </script>
 
@@ -49,13 +59,28 @@ export default {
 <template>
     <div class="container py-5">
         <h2 class="text-light fs-1">Questi sono i nostri post:</h2>
-		<!-- <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-5">
-			<div class="col" v-for="project in arrProjects" :key="project.id">
-				<ProjectCardVue :objProject="project" />
-			</div>
-		</div> -->
-    
     </div>
+
+
+	<div class="container py-3">
+		<form>
+			<h2 class="text-light">Filtra</h2>
+			<label for="type"></label>
+			<select 
+			style="width: 300px;" 
+			class="form-select" 
+			id="type">	
+				<option 
+				v-for="type in arrTypes" 
+				:key="type.id" 
+				:value="type.id"
+				>{{ type.name }}
+				</option>
+			</select>
+		</form>
+	</div>
+	
+	
     
     <div class="container-big py-3 d-flex gap-3 flex-wrap justify-content-center">
 		<div class="col-3" v-for="project in arrProjects" :key="project.title">

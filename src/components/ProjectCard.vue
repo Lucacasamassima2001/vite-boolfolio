@@ -25,7 +25,7 @@ export default {
 
 
 <template>
-  <div class="card" style="width: 18rem; height: 34rem;">
+  <div class="card" style="width: 18rem; height: 36rem;">
     <img :src="getImageUrl(objProject.image)" class="card-img-top" :alt="objProject.title">
     <div class="card-body">
       <h5 class="card-title">{{ objProject.title }}</h5>
