@@ -1,9 +1,21 @@
 <script>
+import { store } from '../store';
 export default {
   data(){
     return {
       searchString: '',
+      store,
     };
+  },
+
+  methods: {
+    executeSearch(){
+      this.store.search = this.searchString
+      this.$router.push({
+        name:'projects',
+        query: {q: this.searchString}
+      });
+    },
   }
 };
 </script>
@@ -54,7 +66,7 @@ export default {
       </ul>
       <form class="d-flex" 
             role="search" 
-            @submit.prevent="$router.push({name: 'projects', query: {q: searchString },})"
+            @submit.prevent="executeSearch"
             >
         <input class="form-control me-2"
          type="search"

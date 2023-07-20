@@ -26,7 +26,7 @@ export default {
 				params: {
 					page: this.currentPage,
 					// to do/fix me
-					q: new URLSearchParams(window.location.search).get('q'),
+					q: this.store.search,
 					types: this.typeid,
 				},
 			})
@@ -52,6 +52,9 @@ export default {
     },
 	watch: {
 		currentPage(){
+			this.getProjects();
+		},
+		'store.search'(){
 			this.getProjects();
 		}
 	},
