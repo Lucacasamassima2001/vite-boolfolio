@@ -29,6 +29,7 @@ export default {
     <img :src="getImageUrl(objProject.image)" class="card-img-top" :alt="objProject.title">
     <div class="card-body">
       <h5 class="card-title">{{ objProject.title }}</h5>
+      <h4>Type: {{ objProject.type.name }}</h4>
       <h3 class="card-title">Repository: {{ objProject.repo }}</h3>
       <p class="card-text">{{ objProject.description }}</p>
       <router-link :to="{name: 'projects.show', params: {slug: objProject.slug}}" >

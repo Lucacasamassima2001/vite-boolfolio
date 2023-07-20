@@ -32,6 +32,11 @@ export default {
                 <a class="nav-link active" aria-current="page" href="#">About</a>
             </router-link>
         </li>
+        <li class="nav-item">
+            <router-link :to="{name: 'contact'}">
+                <a class="nav-link active" aria-current="page" href="#">Contact</a>
+            </router-link>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown

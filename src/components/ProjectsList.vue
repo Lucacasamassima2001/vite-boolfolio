@@ -2,6 +2,7 @@
 import axios from 'axios';
 import ProjectCardVue from './ProjectCard.vue';
 import {store} from '../store';
+import ProjectFilter from './ProjectFilter.vue';
 
 
 export default {
@@ -9,6 +10,7 @@ export default {
         return {
             arrProjects: [],
 			arrTypes: [],
+			typeid: null,
             currentPage: 1,
             nPages: 0,
 			store,
@@ -24,7 +26,8 @@ export default {
 				params: {
 					page: this.currentPage,
 					// to do/fix me
-					// q: new URLSearchParams(window.location.search).get('q'),
+					q: new URLSearchParams(window.location.search).get('q'),
+					types: this.typeid,
 				},
 			})
 			.then(response => {
@@ -38,6 +41,10 @@ export default {
 				this.arrTypes = response.data.results;
 			});
 		},
+		manageChangeTypes(typeid) {
+			this.typeid = typeid;
+			this.getProjects();
+		}
     },
     created(){
         this.getProjects();
@@ -50,6 +57,7 @@ export default {
 	},
     components:{
         ProjectCardVue,
+		ProjectFilter,
     },
 };
 </script>
@@ -61,24 +69,10 @@ export default {
         <h2 class="text-light fs-1">Questi sono i nostri post:</h2>
     </div>
 
-
-	<div class="container py-3">
-		<form>
-			<h2 class="text-light">Filtra</h2>
-			<label for="type"></label>
-			<select 
-			style="width: 300px;" 
-			class="form-select" 
-			id="type">	
-				<option 
-				v-for="type in arrTypes" 
-				:key="type.id" 
-				:value="type.id"
-				>{{ type.name }}
-				</option>
-			</select>
-		</form>
-	</div>
+	<ProjectFilter 
+	:types="arrTypes"
+	@changeType="manageChangeTypes($event)"/>
+	
 	
 	
     

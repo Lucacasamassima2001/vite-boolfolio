@@ -4,6 +4,7 @@ import AppHome from './pages/AppHome.vue';
 import AppProjects from './pages/AppProjects.vue';
 import ProjectShow from './pages/ProjectShow.vue';
 import AppAbout from './pages/AppAbout.vue';
+import AppContact from './pages/AppContact.vue';
 import App404 from './pages/App404.vue';
 
 
@@ -32,6 +33,11 @@ const router = createRouter({
             path: '/projects/:slug',
             name: 'projects.show',
             component: ProjectShow,
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: AppContact,
         },
         {
             path: '/:patMatch(.*)*',
